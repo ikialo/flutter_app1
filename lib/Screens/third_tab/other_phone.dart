@@ -2,6 +2,7 @@ import 'package:call_number/call_number.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
+import 'package:contacts_service/contacts_service.dart';
 
 class OtherPhone extends StatefulWidget {
   OtherPhone({Key key}) : super(key: key);
@@ -17,8 +18,14 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
   String amountTF = '';
   String accountTo = "";
   String desc = "";
-  String phoneNum = "";
+  String phoneNum = "123";
   int network = 0;
+
+
+  TextEditingController _quoteController;
+  TextEditingController _authorController;
+
+
 
   Widget build(BuildContext context) {
     return new Material(
@@ -28,7 +35,10 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                     constraints: new BoxConstraints(),
                     child: Center(
                       child: new Column(children: <Widget>[
-                        Text("Choose Account to Send from",style: TextStyle(fontWeight: FontWeight.bold , color: Colors.lightGreen)),
+                        Text("Choose Account to Send from",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightGreen)),
                         ListTile(
                           title: const Text('Savings'),
                           leading: Radio(
@@ -64,8 +74,13 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                             });
                           },
                         ),
-                        Padding(child:Text("Choose Network",style: TextStyle(fontWeight: FontWeight.bold , color: Colors.lightGreen)),
-                        padding: EdgeInsets.all(8.0),),
+                        Padding(
+                          child: Text("Choose Network",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.lightGreen)),
+                          padding: EdgeInsets.all(8.0),
+                        ),
                         ListTile(
                           title: const Text('Digicel'),
                           leading: Radio(
@@ -90,18 +105,37 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                             },
                           ),
                         ),
-
-                        TextField(
-                          keyboardType: TextInputType.number,
-                          autofocus: true,
-                          decoration: new InputDecoration(
-                              labelText: 'Input Phone Number',
-                              hintText: 'eg. 1212.'),
-                          onChanged: (value) {
-                            setState(() {
-                              phoneNum = value;
-                            });
-                          },
+                        Center(
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  autofocus: true,
+                                  decoration: new InputDecoration(
+                                      labelText: 'Input Phone #',
+                                      hintText: 'eg. 1212.'),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      phoneNum = value;
+                                    });
+                                  },
+                                ),
+                                width: 130.0,
+                              ),
+                              Container(
+                                  width: 60.0,
+                                  child: Center(
+                                      child: FlatButton.icon(
+                                    onPressed: () {
+                                      alertList();
+                                    },
+                                    icon: Icon(Icons.contacts),
+                                    label: Text(""),
+                                    color: Colors.lightGreen,
+                                  )))
+                            ],
+                          ),
                         ),
                         TextField(
                           obscureText: true,
@@ -116,7 +150,6 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                             });
                           },
                         ),
-
                         Row(
                           children: <Widget>[
                             FlatButton(
@@ -132,8 +165,7 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                                     "3*1*" +
                                     _character.toString() +
                                     "*1*" +
-                                    phoneNum
-                                    +
+                                    phoneNum +
                                     "*" +
                                     network.toString() +
                                     "*" +
@@ -162,5 +194,61 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
 
   _initCall(num) async {
     await new CallNumber().callNumber(num);
+  }
+
+  Future<void> alertList() async {
+    Iterable<Contact> contacts =
+        await ContactsService.getContacts(withThumbnails: false);
+
+    List<Contact> entries = contacts.toList();
+
+    final List<int> colorCodes = <int>[600, 500, 100];
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Contact List'),
+          content: Material(
+            child: Scaffold(
+              body: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            height: 50,
+                            color: Colors.lightGreenAccent,
+                            child: GestureDetector(
+                                child: Center(
+                                    child:
+                                        Text('${entries[index].displayName}')),
+                                onTap: () {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          '${entries[index].phones.toList()[0].value}')));
+
+
+                                  String ph =  entries[index].phones.toList()[0].value;
+
+                                  developer.log(ph.length.toString(), name: "Length: ");
+                                  setState(() {
+                                    phoneNum =ph;
+
+                                  });
+
+                                  Navigator.pop(context);
+                                }));
+                      }),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
