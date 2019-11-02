@@ -226,6 +226,7 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                                 child: Center(
                                     child:
                                         Text('${entries[index].displayName}')),
+
                                 onTap: () {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(

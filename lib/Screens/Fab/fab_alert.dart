@@ -4,6 +4,7 @@ import 'package:flutter_app1/Screens/second_tabs/other_bank.dart';
 import 'package:flutter_app1/Screens/second_tabs/other_bsp.dart';
 import 'package:flutter_app1/Screens/second_tabs/own_acc.dart';
 import 'package:flutter_app1/Screens/Fab/alert_content.dart';
+import 'package:flutter_app1/scan.dart';
 
 class FabAlert extends StatefulWidget {
   FabAlert({Key key}) : super(key: key);
@@ -17,9 +18,12 @@ class FabAlertState extends State<FabAlert> {
   @override
   Widget build(BuildContext context) {
     return  FloatingActionButton(
-       onPressed: () {
-         alertDialog(AlertContent());
-       },
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ScanScreen()),
+        );
+      },
        child: Text(
          "+",
          style: TextStyle(

@@ -17,7 +17,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget build(BuildContext context) {
     return new Material(
-        child: new Container(
+              child: Padding(padding: EdgeInsets.all(10.0),  child : new Container(
             child: new SingleChildScrollView(
                 child: new ConstrainedBox(
                     constraints: new BoxConstraints(),
@@ -109,7 +109,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
                         },child: Text("Cancel"),)],)
                       ]),
-                    )))));
+                    ))))));
   }
 
   _initCall(num) async {

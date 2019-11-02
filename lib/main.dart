@@ -68,6 +68,13 @@ class _MyHomePageState extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[MyHomePage(), Transfer(), Topup()],
               ),
+              drawer: ListTile(
+                leading: Icon(Icons.change_history),
+                title: Text('Change history'),
+                onTap: () {
+                  // change app state...
+                },
+              ),
               floatingActionButton: FabAlert(),
          )
       )

@@ -13,7 +13,31 @@ class Transfer extends StatefulWidget {
 
 enum SingingCharacter { savings, current }
 
-class SecondRoute extends State<Transfer> {
+class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
+
+
+  AnimationController animationController;
+  Animation<double> animation;
+  Animation<double> sizeAnimation;
+  int currentState = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationController = AnimationController(duration: Duration(milliseconds: 500),vsync: this);
+    animation = Tween<double>(begin: 0,end: 60).animate(animationController)..addListener((){
+      setState(() {
+
+      });
+    });
+    sizeAnimation = Tween<double>(begin: 0,end: 1).animate(CurvedAnimation(parent: animationController,curve: Curves.fastOutSlowIn))..addListener((){
+      setState(() {
+
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +48,8 @@ class SecondRoute extends State<Transfer> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+
+         
           FlatButton(
             splashColor: Colors.purpleAccent,
             color: Colors.deepPurple,
@@ -37,6 +63,7 @@ class SecondRoute extends State<Transfer> {
             ),
           ),
           FlatButton(
+
             splashColor: Colors.purpleAccent,
             color: Colors.deepPurple,
             onPressed: () {
@@ -74,8 +101,12 @@ class SecondRoute extends State<Transfer> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-
+          contentPadding: EdgeInsets.all(1.0),
+          elevation: 8.0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
           title: Text('BSP USSD'),
+          backgroundColor: Colors.lightGreen,
           content: popup,
         );
       },
