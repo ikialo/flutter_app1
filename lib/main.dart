@@ -5,6 +5,7 @@ import 'package:flutter_app1/Screens/first_page.dart';
 import 'package:flutter_app1/Screens/second_page.dart';
 import 'package:flutter_app1/Screens/third_page.dart';
 import 'package:flutter_app1/Screens/Fab/fab_alert.dart';
+import 'package:flutter_app1/seller.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,10 +29,10 @@ class _MyHomePageState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: Colors.green,
-      home: DefaultTabController(
-          length: 3,
-          child: Scaffold(
+        color: Colors.green,
+        home: DefaultTabController(
+            length: 3,
+            child: Scaffold(
               appBar: AppBar(
                 elevation: 10,
                 backgroundColor: Colors.lightGreen,
@@ -68,18 +69,30 @@ class _MyHomePageState extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[MyHomePage(), Transfer(), Topup()],
               ),
-              drawer: ListTile(
-                leading: Icon(Icons.change_history),
-                title: Text('Change history'),
-                onTap: () {
-                  // change app state...
-                },
-              ),
+              drawer: Drawer(
+                  elevation: 22.0,
+                  child: ListView(
+                    children: <Widget>[
+                      UserAccountsDrawerHeader(
+                        arrowColor: Colors.lightGreen,
+                        accountName: Text("BSP USSD Options"),
+                      ),
+                      ListTile(
+                        title: Text("Seller Page"),
+                        trailing: Icon(Icons.account_box),
+                        onTap: () {
+//                        Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Seller()));
+                        },
+                      ),
+                      ListTile(
+                        title: Text("Item 2"),
+                        trailing: Icon(Icons.arrow_forward),
+                      ),
+                    ],
+                  )),
               floatingActionButton: FabAlert(),
-         )
-      )
-    );
+            )));
   }
-
 }
-

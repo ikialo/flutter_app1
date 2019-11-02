@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -26,8 +28,21 @@ class FirstRoute extends State<MyHomePage>{
 
   String teamName = '';
   String format = '';
+  String stringValue ='';
+
+  getValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    setState(() {
+      stringValue = prefs.getString('stringValue');
+    });
+    //Return bool
+
+  }
 
   Future<String> _asyncInputDialog(BuildContext context, buttonNumber) async {
+
+
     return showDialog<String>(
       context: context,
 
@@ -73,7 +88,8 @@ class FirstRoute extends State<MyHomePage>{
                     Navigator.of(context).pop(teamName);
                   },
                 ),
-              ],)
+              ],),
+              Text("$stringValue")
 
             ],
           ),
@@ -100,6 +116,11 @@ class FirstRoute extends State<MyHomePage>{
     }
   }
 
+
+  @override
+  void initState() {
+    getValuesSF();
+  }
 
 
 
@@ -139,6 +160,7 @@ class FirstRoute extends State<MyHomePage>{
 
               ),
             )
+            ,
           ],
         ),
       ),
