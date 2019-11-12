@@ -1,7 +1,10 @@
 import 'package:call_number/call_number.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/accountSave.dart';
 import 'dart:developer' as developer;
+
+import '../../list_db.dart';
 
 class Other_Bank extends StatefulWidget {
   Other_Bank({Key key}) : super(key: key);
@@ -18,6 +21,8 @@ class _MyStatefulWidgetState extends State<Other_Bank> {
   String accountTo = "";
   String desc = "";
   int bank = 0;
+
+  AccountSave selectedAcc = AccountSave('Name', "Account");
 
   Widget build(BuildContext context) {
     return new Material(
@@ -102,17 +107,43 @@ class _MyStatefulWidgetState extends State<Other_Bank> {
                             },
                           ),
                         ),
-                        TextField(
-                          keyboardType: TextInputType.number,
-                          autofocus: true,
-                          decoration: new InputDecoration(
-                              labelText: 'Input Acc Number', hintText: 'eg. 1212.'),
-                          onChanged: (value) {
-                            setState(() {
-                              accountTo = value;
-                            });
-                          },
-                        ),
+
+                   Row( children: <Widget>[
+
+                     Expanded(
+
+
+                       child: TextField(
+
+
+
+                       keyboardType: TextInputType.number,
+                       autofocus: true,
+                       decoration: new InputDecoration(
+                           labelText: 'Input Acc Number ', hintText: 'eg. 1212.'),
+                       onChanged: (value) {
+                         setState(() {
+                           accountTo = value;
+                         });
+                       },
+                     ),
+                       flex: 2,
+                     ),
+
+
+                     Expanded(child:    FlatButton.icon(icon: Icon(Icons.list, size: 50,color: Colors.lightGreen, ),label: Text(""), splashColor: Colors.deepPurple,
+                       onPressed: (){
+
+                         _navigateAndDisplaySelection(context);
+                       },
+
+                     ), flex: 1,)
+
+                   ],),
+
+
+                        Text( selectedAcc == null ? "No contact selected ": "Name: "+ selectedAcc.name + " Number: " + selectedAcc.savedAccount),
+
                         TextField(
                           autofocus: true,
                           decoration: new InputDecoration(
@@ -188,6 +219,29 @@ class _MyStatefulWidgetState extends State<Other_Bank> {
                         )
                       ]),
                     )))));
+  }
+
+
+  _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyEmployeeList()),
+    );
+
+
+    setState(() {
+      selectedAcc = result;
+
+      accountTo = selectedAcc.savedAccount;
+    });
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    Scaffold.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text("$result")));
   }
 
   _initCall(num) async {

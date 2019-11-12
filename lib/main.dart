@@ -6,6 +6,8 @@ import 'package:flutter_app1/Screens/second_page.dart';
 import 'package:flutter_app1/Screens/third_page.dart';
 import 'package:flutter_app1/Screens/Fab/fab_alert.dart';
 import 'package:flutter_app1/seller.dart';
+import 'package:flutter_app1/add_acc.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -87,8 +89,13 @@ class _MyHomePageState extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: Text("Item 2"),
-                        trailing: Icon(Icons.arrow_forward),
+                        title: Text("Add Account"),
+                        trailing: Icon(Icons.playlist_add),
+
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => AddAcc()));
+                        },
                       ),
                     ],
                   )),

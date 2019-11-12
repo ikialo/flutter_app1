@@ -24,13 +24,7 @@ class FabAlertState extends State<FabAlert> {
           MaterialPageRoute(builder: (context) => ScanScreen()),
         );
       },
-       child: Text(
-         "+",
-         style: TextStyle(
-             fontWeight: FontWeight.bold,
-             color: Colors.deepPurple,
-             fontSize: 30.0),
-       ),
+       child: Icon(Icons.attach_money, size: 50),
        backgroundColor: Colors.lightGreen,
 
     );

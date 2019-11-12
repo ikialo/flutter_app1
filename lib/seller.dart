@@ -17,13 +17,10 @@ class SellerState extends State<Seller> {
   String accountNum = "";
   String amount = "";
   String qrStringGen = "BSP USSD QR CODE";
-  static const double _topSectionTopPadding = 50.0;
-  static const double _topSectionBottomPadding = 20.0;
-  static const double _topSectionHeight = 50.0;
+
 
   GlobalKey globalKey = new GlobalKey();
-  String _inputErrorText;
-  final TextEditingController _textController = TextEditingController();
+
 
   getValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,6 +30,7 @@ class SellerState extends State<Seller> {
       stringValue = prefs.getString("NameBusiness");
     });
   }
+
 
   addString() {
     String qrString = accountNum + "," + amount + "," + stringValue;
@@ -148,7 +146,9 @@ class SellerState extends State<Seller> {
                 child: QrImage(
                   data: qrStringGen,
                   size: 0.5 * bodyHeight,
+                  backgroundColor: Colors.lightGreen,
                 ),
+
 
               ),
             ),

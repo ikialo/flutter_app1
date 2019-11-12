@@ -2,7 +2,7 @@ import 'package:call_number/call_number.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
-import 'package:contacts_service/contacts_service.dart';
+import 'package:native_contact_picker/native_contact_picker.dart';
 
 class OtherPhone extends StatefulWidget {
   OtherPhone({Key key}) : super(key: key);
@@ -21,11 +21,11 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
   String phoneNum = "123";
   int network = 0;
 
-
   TextEditingController _quoteController;
   TextEditingController _authorController;
 
-
+  final NativeContactPicker _contactPicker = new NativeContactPicker();
+  Contact _contact;
 
   Widget build(BuildContext context) {
     return new Material(
@@ -127,8 +127,15 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                                   width: 60.0,
                                   child: Center(
                                       child: FlatButton.icon(
-                                    onPressed: () {
-                                      alertList();
+                                    onPressed: () async {
+                                      Contact contact =
+                                          await _contactPicker.selectContact();
+                                      setState(() {
+                                        _contact = contact;
+                                        phoneNum = contact.phoneNumber;
+                                      });
+
+                                      //alertList();
                                     },
                                     icon: Icon(Icons.contacts),
                                     label: Text(""),
@@ -137,6 +144,8 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                             ],
                           ),
                         ),
+
+                        Text( _contact == null ? "No contact selected ": "Name: "+ _contact.fullName + " Number: " + _contact.phoneNumber),
                         TextField(
                           obscureText: true,
                           maxLength: 4,
@@ -195,61 +204,61 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
   _initCall(num) async {
     await new CallNumber().callNumber(num);
   }
-
-  Future<void> alertList() async {
-    Iterable<Contact> contacts =
-        await ContactsService.getContacts(withThumbnails: false);
-
-    List<Contact> entries = contacts.toList();
-
-    final List<int> colorCodes = <int>[600, 500, 100];
-
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Contact List'),
-          content: Material(
-            child: Scaffold(
-              body: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: entries.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            height: 50,
-                            color: Colors.lightGreenAccent,
-                            child: GestureDetector(
-                                child: Center(
-                                    child:
-                                        Text('${entries[index].displayName}')),
-
-                                onTap: () {
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(
-                                          '${entries[index].phones.toList()[0].value}')));
-
-
-                                  String ph =  entries[index].phones.toList()[0].value;
-
-                                  developer.log(ph.length.toString(), name: "Length: ");
-                                  setState(() {
-                                    phoneNum =ph;
-
-                                  });
-
-                                  Navigator.pop(context);
-                                }));
-                      }),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+//
+//  Future<void> alertList() async {
+//    Iterable<Contact> contacts =
+//        await ContactsService.getContacts(withThumbnails: false);
+//
+//    List<Contact> entries = contacts.toList();
+//
+//    final List<int> colorCodes = <int>[600, 500, 100];
+//
+//    return showDialog<void>(
+//      context: context,
+//      barrierDismissible: false, // user must tap button!
+//      builder: (BuildContext context) {
+//        return AlertDialog(
+//          title: Text('Contact List'),
+//          content: Material(
+//            child: Scaffold(
+//              body: Center(
+//                child: Padding(
+//                  padding: EdgeInsets.all(10),
+//                  child: ListView.builder(
+//                      padding: const EdgeInsets.all(8),
+//                      itemCount: entries.length,
+//                      itemBuilder: (BuildContext context, int index) {
+//                        return Container(
+//                            height: 50,
+//                            color: Colors.lightGreenAccent,
+//                            child: GestureDetector(
+//                                child: Center(
+//                                    child:
+//                                        Text('${entries[index].displayName}')),
+//
+//                                onTap: () {
+//                                  Scaffold.of(context).showSnackBar(SnackBar(
+//                                      content: Text(
+//                                          '${entries[index].phones.toList()[0].value}')));
+//
+//
+//                                  String ph =  entries[index].phones.toList()[0].value;
+//
+//                                  developer.log(ph.length.toString(), name: "Length: ");
+//                                  setState(() {
+//                                    phoneNum =ph;
+//
+//                                  });
+//
+//                                  Navigator.pop(context);
+//                                }));
+//                      }),
+//                ),
+//              ),
+//            ),
+//          ),
+//        );
+//      },
+//    );
+//  }
 }

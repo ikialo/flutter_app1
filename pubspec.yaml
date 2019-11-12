@@ -14,7 +14,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
 #  permission_handler: ^3.3.0
@@ -28,6 +28,11 @@ dependencies:
   qr_flutter: ^3.0.1
   barcode_scan: ^1.0.0
   path_provider: ^1.4.0
+  native_contact_picker: ^0.0.6
+  sqflite: ^1.1.7+1
+  path: ^1.6.4
+
+
   flutter:
     sdk: flutter
 
