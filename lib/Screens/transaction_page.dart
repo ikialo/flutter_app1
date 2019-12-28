@@ -1,13 +1,16 @@
 import 'package:call_number/call_number.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/scan.dart';
 import 'dart:developer' as developer;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../seller.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+
+class Transaction extends StatefulWidget {
+  Transaction({Key key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -24,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 
-class FirstRoute extends State<MyHomePage>{
+class FirstRoute extends State<Transaction>{
 
   String teamName = '';
   String format = '';
@@ -76,8 +79,8 @@ class FirstRoute extends State<MyHomePage>{
                     _initCall(buttonNumber);
 
                     setState(() {
-                       teamName = '';
-                       format = '';
+                      teamName = '';
+                      format = '';
                     });
                     Navigator.of(context).pop(teamName);
                   },
@@ -140,10 +143,11 @@ class FirstRoute extends State<MyHomePage>{
               color: Colors.deepPurple,
 
               onPressed: (){
-                _asyncInputDialog(context, 1);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => ScanScreen()));
               },
               child: Text(
-                'Check Balance',
+                'Buyer',
                 style: TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow),
 
               ),
@@ -152,10 +156,12 @@ class FirstRoute extends State<MyHomePage>{
               splashColor: Colors.purpleAccent,
               color: Colors.deepPurple,
               onPressed: () {
-                _asyncInputDialog(context, 2);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => Seller()));
               },
               child: Text(
-                'Mini Statement ',
+                'Seller ',
                 style: TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow),
 
               ),

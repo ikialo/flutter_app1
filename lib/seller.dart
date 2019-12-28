@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'accountSave.dart';
+
 class Seller extends StatefulWidget {
   @override
   SellerState createState() => new SellerState();
@@ -20,6 +22,11 @@ class SellerState extends State<Seller> {
 
 
   GlobalKey globalKey = new GlobalKey();
+
+  AccountSave selectedAccSeller;
+
+  String accountTo;
+  String nameOfAcc;
 
 
   getValuesSF() async {
@@ -81,7 +88,7 @@ class SellerState extends State<Seller> {
           ),
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(color: Colors.lightGreen),
+              decoration: const BoxDecoration(color: Colors.blueAccent),
               child: _contentWidget(),
             ),
             flex: 5,
@@ -94,7 +101,7 @@ class SellerState extends State<Seller> {
                   addString();
                 },
                 child: Text("Submit"),
-                color: Colors.lightGreen,
+                color: Colors.blueAccent,
               )),
             ),
             flex: 1,
@@ -102,7 +109,7 @@ class SellerState extends State<Seller> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _asyncInputDialog(context),
+        onPressed: () => _navigateAndDisplaySelection(context),
         child: Text(
           "+",
           style: TextStyle(
@@ -110,9 +117,33 @@ class SellerState extends State<Seller> {
               color: Colors.deepPurple,
               fontSize: 30.0),
         ),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.yellow,
       ),
     );
+  }
+
+
+  _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SellerUser()),
+    );
+
+
+    setState(() {
+      selectedAccSeller = result;
+
+      accountNum = selectedAccSeller.savedAccount;
+      stringValue = selectedAccSeller.name;
+    });
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    Scaffold.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text("$result")));
   }
 
   Future<String> _asyncInputDialog(BuildContext context) async {
@@ -146,7 +177,7 @@ class SellerState extends State<Seller> {
                 child: QrImage(
                   data: qrStringGen,
                   size: 0.5 * bodyHeight,
-                  backgroundColor: Colors.lightGreen,
+                  backgroundColor: Colors.blueAccent,
                 ),
 
 
@@ -175,11 +206,13 @@ class SellerUserState extends State<SellerUser> {
   }
 
   addStringToSF() async {
+
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('stringValue', accountNum);
     prefs.setString('NameBusiness', businessName);
 
-    Navigator.of(context).pop();
+    Navigator.pop(context, AccountSave(businessName, accountNum));
   }
 
   getValuesSF() async {
@@ -195,14 +228,16 @@ class SellerUserState extends State<SellerUser> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        child: Column(
+      appBar: AppBar(title: Text("Add Account"),),
+      body:Center(child: Container(
+
+        child: Center(child:Column(
           children: <Widget>[
             TextField(
               keyboardType: TextInputType.number,
               autofocus: true,
               decoration: new InputDecoration(
-                  labelText: 'Account Number', hintText: 'eg. 1000025852.'),
+                  labelText: 'Account Number', hintText: 'eg. .'),
               onChanged: (value) {
                 setState(() {
                   accountNum = value;
@@ -223,12 +258,12 @@ class SellerUserState extends State<SellerUser> {
             FlatButton(
               onPressed: addStringToSF,
               child: Text("Submit"),
-              color: Colors.lightGreen,
+              color: Colors.blueAccent,
             ),
             Text("$stringValue")
           ],
         ),
       ),
-    );
+    )));
   }
 }

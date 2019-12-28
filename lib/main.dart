@@ -5,6 +5,7 @@ import 'package:flutter_app1/Screens/first_page.dart';
 import 'package:flutter_app1/Screens/second_page.dart';
 import 'package:flutter_app1/Screens/third_page.dart';
 import 'package:flutter_app1/Screens/Fab/fab_alert.dart';
+import 'package:flutter_app1/Screens/transaction_page.dart';
 import 'package:flutter_app1/seller.dart';
 import 'package:flutter_app1/add_acc.dart';
 
@@ -17,10 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       color: Colors.greenAccent,
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.lightGreen,
+          primarySwatch: Colors.deepPurple,
           backgroundColor: Colors.greenAccent),
       home: _MyHomePageState(),
     );
@@ -31,16 +33,18 @@ class _MyHomePageState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        color: Colors.green,
+
+        color: Colors.deepPurple,
         home: DefaultTabController(
-            length: 3,
+            length: 4,
             child: Scaffold(
+              backgroundColor: Colors.purpleAccent,
               appBar: AppBar(
                 elevation: 10,
-                backgroundColor: Colors.lightGreen,
+                backgroundColor: Colors.deepPurple,
                 bottom: TabBar(
-                  indicatorColor: Colors.deepPurpleAccent,
-                  labelColor: Colors.deepPurple,
+                  indicatorColor: Colors.yellow,
+                  labelColor: Colors.yellowAccent,
                   tabs: [
                     Tab(
                       child: Text(
@@ -60,16 +64,22 @@ class _MyHomePageState extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
+                    Tab(
+                      child: Text(
+                        "Transaction",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0),
+                      ),
+                    ),
                   ],
                 ),
-                title: Text("BSP USSD",
+                title: Text("Mobile Banking USSD",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurpleAccent)),
+                        color: Colors.yellowAccent)),
                 centerTitle: true,
               ),
               body: TabBarView(
-                children: <Widget>[MyHomePage(), Transfer(), Topup()],
+                children: <Widget>[MyHomePage(), Transfer(), Topup(), Transaction()],
               ),
               drawer: Drawer(
                   elevation: 22.0,

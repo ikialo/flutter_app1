@@ -130,9 +130,16 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                                     onPressed: () async {
                                       Contact contact =
                                           await _contactPicker.selectContact();
+
+                                    //  RegExp exp = new RegExp("+675");
+
+
+                                      String con = contact.phoneNumber.replaceFirst("+675", "");
+
+
                                       setState(() {
                                         _contact = contact;
-                                        phoneNum = contact.phoneNumber;
+                                        phoneNum = con;
                                       });
 
                                       //alertList();
@@ -145,7 +152,7 @@ class _MyStatefulWidgetState extends State<OtherPhone> {
                           ),
                         ),
 
-                        Text( _contact == null ? "No contact selected ": "Name: "+ _contact.fullName + " Number: " + _contact.phoneNumber),
+                        Text( _contact == null ? "No contact selected ": "Name: "+ _contact.fullName + " Number: " + phoneNum),
                         TextField(
                           obscureText: true,
                           maxLength: 4,

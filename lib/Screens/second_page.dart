@@ -71,7 +71,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
                 child: Text(
                   "Own BSP Account",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.yellowAccent),
                 ),
               ),
               FlatButton(
@@ -83,7 +83,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
                 child: Text(
                   "Other BSP Account",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.yellowAccent),
                 ),
               ),
               FlatButton(
@@ -95,7 +95,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
                 child: Text(
                   "Other Bank Account",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.yellowAccent),
                 ),
               )
             ],
@@ -107,7 +107,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
             bottom: 15,
             left: 5,
 
-            child: FlatButton.icon(icon: Icon(Icons.add_circle, size: 50,color: Colors.lightGreen, ),label: Text(""), splashColor: Colors.deepPurple,
+            child: FlatButton.icon(icon: Icon(Icons.add_circle, size: 50,color: Colors.deepPurple, ),label: Text(""), splashColor: Colors.yellow,
               onPressed: (){
                 alertAdd();
               },
@@ -131,7 +131,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0))),
           title: Text('BSP USSD'),
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: Colors.redAccent,
           content: popup,
         );
       },
@@ -150,7 +150,7 @@ class SecondRoute extends State<Transfer> with SingleTickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0))),
           title: Text('Save Account'),
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: Colors.redAccent,
           content: AlertContentSave()
         );
       },
@@ -238,7 +238,7 @@ class AlertContentSaveState extends State<AlertContentSave>{
               ),
 
               new Container(margin: const EdgeInsets.only(top: 10.0),child: new RaisedButton(onPressed: _submit,
-                color: Colors.lightGreen,
+                color: Colors.yellow,
                 child: new Text('$selected_acc'),),)
 
             ],

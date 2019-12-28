@@ -30,11 +30,11 @@ class _ScanState extends State<ScanScreen> {
     return Scaffold(
 
         appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: Colors.red,
           title: new Text('QR Code Scanner'),
         ),
-        floatingActionButton: FloatingActionButton(backgroundColor:Colors.lightGreen,
-          child: Icon(Icons.camera), onPressed: scan,splashColor: Colors.deepPurple,),
+        floatingActionButton: FloatingActionButton(backgroundColor:Colors.redAccent,
+          child: Icon(Icons.camera), onPressed: scan,splashColor: Colors.yellow,),
 
 
         body: new Center(
@@ -46,25 +46,25 @@ class _ScanState extends State<ScanScreen> {
 
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text("Account Number: "+accountNum, textAlign: TextAlign.left,),
+                child: Text("Account Number: "+accountNum, textAlign: TextAlign.left,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18.0),),
               )
               ,
 
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text("Amount is: K"+amount, textAlign: TextAlign.left, ),
+                child: Text("Amount is: K"+amount, textAlign: TextAlign.left, style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18.0)),
               )
               ,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text("Business Name: "+desc, textAlign: TextAlign.left,),
+                child: Text("Business Name: "+desc, textAlign: TextAlign.left,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18.0)),
               ),
               Padding(
 
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Column(children: <Widget>[
 
-                  Text("Choose Account to Transfer From",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.lightGreen),),
+                  Text("Choose Account to Transfer From",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),),
 
                   ListTile(
 
@@ -92,15 +92,15 @@ class _ScanState extends State<ScanScreen> {
                     ),
                   ),
 
-                  Text("Enter Pin ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.lightGreen),),
+                  Text("Enter Pin ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),),
                   TextField(
                     obscureText: true,
                     maxLength: 4,
                     keyboardType: TextInputType.number,
                     autofocus: true,
                     decoration: new InputDecoration(
-                      focusColor: Colors.lightGreen,
-                        fillColor: Colors.lightGreen,
+                      focusColor: Colors.redAccent,
+                        fillColor: Colors.redAccent,
                         labelText: 'Input PIN', hintText: 'eg. 1212.'),
                     onChanged: (value) {
                       setState(() {
@@ -115,7 +115,7 @@ class _ScanState extends State<ScanScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: RaisedButton(
-                    color: Colors.lightGreen,
+                    color: Colors.red,
                     textColor: Colors.white,
                     onPressed: (){
 
@@ -139,7 +139,7 @@ class _ScanState extends State<ScanScreen> {
                       _initCall(format);
 
                     },
-                    splashColor: Colors.lightGreen,
+                    splashColor: Colors.redAccent,
                     child: const Text('CONFIRM',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white))
                 ),
               )

@@ -104,7 +104,7 @@ class _MyStatefulWidgetState extends State<EsiPay> {
                                     meterNum +
                                     "*" +
                                     amountTF +
-                                    "*1#";
+                                    "*1%23";
 
                                 developer.log(format, name: 'my.app.category');
 

@@ -34,7 +34,7 @@ class ThirdRoute extends State<Topup> {
                 child: Text(
                   "Own Phone",
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow),
                 ),
               ),
               FlatButton(
@@ -46,7 +46,7 @@ class ThirdRoute extends State<Topup> {
                 child: Text(
                   "Other Phone",
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow),
                 ),
               ),
               FlatButton(
@@ -58,7 +58,7 @@ class ThirdRoute extends State<Topup> {
                 child: Text(
                   "EsiPay",
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow),
                 ),
               )
             ],
